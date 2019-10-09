@@ -61,7 +61,7 @@ mod loans {
     }
 
     #[entry_def]
-     fn my_entry_def() -> ValidatingEntryType {
+     fn loan_request_def() -> ValidatingEntryType {
         entry!(
             name: "loan_request",
             description: "a request that a user has created when wanting to borrow someones item",
@@ -71,9 +71,46 @@ mod loans {
             },
             validation: | _validation_data: hdk::EntryValidationData<MyEntry>| {
                 Ok(())
-            }
+            },
+            links: [
+            to!(
+                "loan_request",
+                link_type: "owner_of_item_requested",
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::ChainFull
+                },
+                validation: | _validation_data: hdk::LinkValidationData | {
+                    Ok(())
+                }
+            )]
         )
     }
+
+    #[entry_def]
+     fn loan_def() -> ValidatingEntryType {
+        entry!(
+            name: "loan",
+            description: "a loan entry created when a request to borrow is accepted by the owner",
+            sharing: Sharing::Public,
+            validation_package: || {
+                hdk::ValidationPackageDefinition::Entry
+            },
+            validation: | _validation_data: hdk::EntryValidationData<MyEntry>| {
+                Ok(())
+            }
+        ),
+        to!(
+                "loan",
+                link_type: "owner_of_item_loaned",
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::ChainFull
+                },
+                validation: | _validation_data: hdk::LinkValidationData | {
+                    Ok(())
+                }
+            )]
+    }
+
 
     #[zome_fn("hc_public")]
     fn request_to_borrow(loan_request: LoanRequest) -> ZomeApiResult<Address> {
@@ -84,8 +121,6 @@ mod loans {
 
         // create a link from owner_of_item to loan_request
 
-
-
         Ok(address)
     }
 
@@ -95,5 +130,30 @@ mod loans {
         //hdk::get_entry(&address)
 
     }
+    
+    #[zome_fn("hc_public")]
+    fn create_loan(loan_request_address: Address, return_by: i64) -> ZomeApiResult<Address> {
+        //create a loan entry
+        let entry = Entry::App("loan".into(), entry.into());
+        let address = hdk::commit_entry(&entry)?;
+        //create a link to the owner of the loan (and also one to the borrower?)
+
+        Ok(address)
+
+    }
+    #[zome_fn("hc_public")]
+    fn decline_loan(loan_request_address: Address) -> ZomeApiResult<Address> {
+        //mark request as deleted?
+        ok()
+
+    }
+    #[zome_fn("hc_public")]
+    fn get_my_loans() -> ZomeApiResult<Vec<ZomeApiResult<GetEntryResult>>> {
+        //get a vector of my loans based on my agent address and links
+        ok()
+
+    }
 
 }
+
+

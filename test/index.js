@@ -94,7 +94,7 @@ diorama.registerScenario("create two books and retrieve them", async (s, t, { al
 
 
 //Scenario 3
-diorama.registerScenario("create, request and borrow a book", async (s, t, { alice }) => {
+diorama.registerScenario("create, request and borrow a book and show all my loans", async (s, t, { alice }) => {
   // Make a call to a Zome function
   // indicating the function, and passing it an input
   const book = await alice.call("book", "create_book", {"book" :{
@@ -110,13 +110,20 @@ diorama.registerScenario("create, request and borrow a book", async (s, t, { ali
 
 
   //creating a loan request for the book just created
-  const result = await alice.call("loans", "request_to_borrow", {"loan_request": {"item_address": book,
-    borrower_address: useradress,}})
-  console.log(result)
+  const loan_request = await alice.call("loans", "request_to_borrow", {"loan_request": {"item_address": book,
+    "borrower_address": useradress,}})
+  console.log(loan_request)
 
-  
+  //create a loan by accepting the request
+  const loan = await alice.call("loans", "create_loan", "params": {"loan_request_address": loan_request, return_by: i64})
+  console.log(loan)
+
+  //getting a vector with all my loans
+  const all_loans = await alice.call("book", "get_my_loans", {})
+  console.log(all_loans)
+
   // check for equality of the actual and expected results
-  t.deepEqual(result, { Ok: { App: [ ] } })
+  t.deepEqual(all_loans, { Ok: { App: [ ] } })
 })
 
 
