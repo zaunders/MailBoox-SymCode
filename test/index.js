@@ -93,6 +93,34 @@ diorama.registerScenario("create two books and retrieve them", async (s, t, { al
 })
 
 
+//Scenario 3
+diorama.registerScenario("create, request and borrow a book", async (s, t, { alice }) => {
+  // Make a call to a Zome function
+  // indicating the function, and passing it an input
+  const book = await alice.call("book", "create_book", {"book" :{
+    "name": "the Foundation",
+    "author": "Isaac Asimov",
+    "genre": "Sci-fi",
+    "blurb": "An epic drama around the collapse and return of a galactic civilzation",
+    "isbn": "0553293354",
+    "book_owner": useradress
+  }})
+  console.log(book)
+  t.ok(book)
+
+
+  //creating a loan request for the book just created
+  const result = await alice.call("loans", "request_to_borrow", {"loan_request": {"item_address": book,
+    borrower_address: useradress,}})
+  console.log(result)
+
+  
+  // check for equality of the actual and expected results
+  t.deepEqual(result, { Ok: { App: [ ] } })
+})
+
+
+
 diorama.run()
 
 
