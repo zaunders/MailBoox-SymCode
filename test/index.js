@@ -8,8 +8,8 @@ process.on('unhandledRejection', error => {
   console.error('got unhandledRejection:', error);
 });
 
-const dnaPath = path.join(__dirname, "../dist/MailBoox.dna.json")
-const dna = Diorama.dna(dnaPath, 'MailBoox')
+const dnaPath = path.join(__dirname, "../dist/MailBoox-SymCode.dna.json")
+const dna = Diorama.dna(dnaPath, 'MailBoox-SymCode')
 
 const diorama = new Diorama({
   instances: {
