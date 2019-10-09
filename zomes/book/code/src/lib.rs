@@ -8,39 +8,20 @@ extern crate serde_derive;
 extern crate serde_json;
 #[macro_use]
 extern crate holochain_json_derive;
+use holochain_wasm_utils::api_serialization::{get_links::GetLinksOptions,get_entry::{GetEntryOptions,GetEntryResult}};
 
-use hdk::{
-    entry_definition::ValidatingEntryType,
-    error::ZomeApiResult,
-};
-use hdk::holochain_core_types::{
-    entry::Entry,
-    dna::entry_types::Sharing,
-};
+use hdk::holochain_core_types::{link::LinkMatch, entry::Entry};
+use hdk::{AGENT_ADDRESS, entry_definition::ValidatingEntryType, error::ZomeApiResult};
 
-use hdk::holochain_json_api::{
-    json::JsonString,
-    error::JsonError
-};
-
-use hdk::holochain_persistence_api::{
-    cas::content::Address
-};
+use hdk::holochain_persistence_api::cas::content::Address;
 
 use hdk_proc_macros::zome;
 
-// see https://developer.holochain.org/api/latest/hdk/ for info on using the hdk library
-
-// This is a sample zome that defines an entry type "MyEntry" that can be committed to the
-// agent's chain via the exposed function create_my_entry
-
-#[derive(Serialize, Deserialize, Debug, DefaultJson,Clone)]
-pub struct MyEntry {
-    content: String,
-}
+mod book;
+use book::Book;
 
 #[zome]
-mod my_zome {
+mod book_zome {
 
     #[init]
     fn init() {
@@ -53,30 +34,37 @@ mod my_zome {
     }
 
     #[entry_def]
-     fn my_entry_def() -> ValidatingEntryType {
-        entry!(
-            name: "my_entry",
-            description: "this is a same entry definition",
-            sharing: Sharing::Public,
-            validation_package: || {
-                hdk::ValidationPackageDefinition::Entry
-            },
-            validation: | _validation_data: hdk::EntryValidationData<MyEntry>| {
-                Ok(())
-            }
-        )
+    fn book_entry_def() -> ValidatingEntryType {
+        book::definition()
     }
 
     #[zome_fn("hc_public")]
-    fn create_my_entry(entry: MyEntry) -> ZomeApiResult<Address> {
-        let entry = Entry::App("my_entry".into(), entry.into());
+    fn create_book(book: Book) -> ZomeApiResult<Address> {
+        let entry = Entry::App("book".into(), book.into());
         let address = hdk::commit_entry(&entry)?;
         Ok(address)
     }
 
     #[zome_fn("hc_public")]
-    fn get_my_entry(address: Address) -> ZomeApiResult<Option<Entry>> {
-        hdk::get_entry(&address)
+    fn get_book(address: Address) -> ZomeApiResult<GetEntryResult> {
+        hdk::get_entry_result(&address, GetEntryOptions::default())
+    }
+
+    #[zome_fn("hc_public")]
+    fn get_my_books() -> ZomeApiResult<Vec<ZomeApiResult<GetEntryResult>>> {
+        hdk::get_links_result(
+            &AGENT_ADDRESS,
+            LinkMatch::Exactly("owner_book"),
+            LinkMatch::Any,
+            GetLinksOptions::default(),
+            GetEntryOptions::default(),
+        )
+    }
+    #[zome_fn("hc_public")]
+    fn get_owner(address: Address) -> ZomeApiResult<Address> {
+        let book: Book = hdk::utils::get_as_type(address)?;
+
+        Ok(book.book_owner)
     }
 
 }
