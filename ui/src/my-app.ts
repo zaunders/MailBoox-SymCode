@@ -1,11 +1,11 @@
 import { connect } from 'pwa-helpers/connect-mixin';
-import { LitElement, property, html } from 'lit-element';
+import { LitElement, property, html, customElement } from 'lit-element';
 import { store, RootState } from './store';
 import { Dictionary } from './types';
 import { Book } from './books/types';
 import { getMyBooks } from './books/state/actions';
 
-import '@authentic/mwc-circular-progress';
+import '@material/mwc-linear-progress';
 import './books/components/book-list';
 import './books/components/create-book';
 import './loans/components/loan-request-list';
@@ -18,6 +18,7 @@ import {
 import { LoanRequest } from './loans/types';
 import { sharedStyles } from './shared-styles';
 
+@customElement('my-app')
 export class MyApp extends connect(store)(LitElement) {
   @property({ type: Object })
   myBooks!: Dictionary<Book>;
@@ -71,7 +72,7 @@ export class MyApp extends connect(store)(LitElement) {
             </div>
           `
         : html`
-            <mwc-circular-progress></mwc-circular-progress>
+            <mwc-linear-progress></mwc-linear-progress>
           `}
     `;
   }

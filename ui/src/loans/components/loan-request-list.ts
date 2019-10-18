@@ -2,7 +2,6 @@ import { LitElement, property, customElement, html } from 'lit-element';
 import { Dictionary } from '../../types';
 import { LoanRequest } from '../types';
 
-import '@authentic/mwc-list';
 import '@material/mwc-button';
 
 @customElement('loan-request-list')
@@ -46,14 +45,14 @@ export class LoanRequestList extends LitElement {
 
   render() {
     return html`
-      <mwc-list>
+      <div class="column">
         ${Object.keys(this.loanRequests).map(loanRequestAddress =>
           this.renderLoanRequest(
             loanRequestAddress,
             this.loanRequests[loanRequestAddress]
           )
         )}
-      </mwc-list>
+      </div>
     `;
   }
 }

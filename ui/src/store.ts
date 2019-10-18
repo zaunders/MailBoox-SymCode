@@ -50,7 +50,7 @@ const devCompose: <Ext0, Ext1, StateExt0, StateExt1>(
 // https://github.com/Polymer/pwa-starter-kit/wiki/4.-Redux-and-state-management
 
 import { connect } from '@holochain/hc-web-client';
-import { holochainMiddleware } from '@holochain/hc-redux-middleware';
+import { holochainMiddleware } from '../node_modules/@holochain/hc-redux-middleware';
 
 // this url should use the same port set up the holochain container
 const url = 'ws://localhost:8888';

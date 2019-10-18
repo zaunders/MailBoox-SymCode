@@ -2,7 +2,6 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import { Book } from '../types';
 import { sharedStyles } from '../../shared-styles';
 
-import '@authentic/mwc-list';
 import '@material/mwc-button';
 import { Dictionary } from '../../types';
 
@@ -39,17 +38,14 @@ export class BookList extends LitElement {
 
   render() {
     return html`
-      <mwc-list>
+      <div class="column">
         ${Object.keys(this.books).map(
           bookAddress =>
             html`
-              <mwc-list-item>
-                ${this.renderBook(bookAddress, this.books[bookAddress])}
-              </mwc-list-item>
-              <mwc-list-divider></mwc-list-divider>
+              ${this.renderBook(bookAddress, this.books[bookAddress])}
             `
         )}
-      </mwc-list>
+      </div>
     `;
   }
 }
