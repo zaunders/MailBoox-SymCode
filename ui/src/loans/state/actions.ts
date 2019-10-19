@@ -1,4 +1,4 @@
-import { createHolochainZomeCallAsyncAction } from '@holochain/hc-redux-middleware';
+import { createHolochainZomeCallAsyncAction } from '../../../node_modules/@holochain/hc-redux-middleware/build/main/lib/actionCreator';
 
 export const getLoanRequestsAction = createHolochainZomeCallAsyncAction(
   'test-instance',
