@@ -51,11 +51,10 @@ const devCompose: <Ext0, Ext1, StateExt0, StateExt1>(
 
 import { connect } from '@holochain/hc-web-client';
 import { holochainMiddleware } from '../node_modules/@holochain/hc-redux-middleware/build/main/lib/middleware';
-import WebSocket from 'isomorphic-ws';
 
 // this url should use the same port set up the holochain container
 const url = 'ws://localhost:8888';
-const hcWc = connect({ url, wsClient: new WebSocket() });
+const hcWc = connect({ url });
 
 export const store = createStore(
   state => state as Reducer<RootState, AnyAction>,

@@ -1,7 +1,7 @@
 import { Reducer, AnyAction } from 'redux';
 import { Dictionary } from '../../types';
 import { LoanRequest, Loan } from '../types';
-import { getType } from 'typesafe-actions';
+import { getType } from '../../../node_modules/typesafe-actions/dist/index';
 import { getMyLoansAction, getLoanRequestsAction } from './actions';
 import { EntryResult, parseEntriesResults } from '../../utils/parse-entries';
 

@@ -1,5 +1,5 @@
 import { Reducer, AnyAction } from 'redux';
-import { getType } from 'typesafe-actions';
+import { getType } from '../../../node_modules/typesafe-actions/dist/index';
 
 import { Book } from '../types';
 import { getMyBooksAction, getBookAction } from './actions';
@@ -48,5 +48,3 @@ export const booksReducer: Reducer<BooksState, AnyAction> = (
       return state;
   }
 };
-
-export default counter;
