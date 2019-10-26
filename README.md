@@ -1,5 +1,7 @@
 # Mailboox - A distributed liberary powered by Holochain
 
+![MailBoox logo](https://i.imgur.com/byz04No.png)
+
 ## Application synopsis
 Enter the books that are in your bookshelf in order to make them visible to your community. Users can request to borrow books from each other and if possible the owner can put the book in his/her Mailbox in order to make it easily available for the borrower to pick-up. 
 
