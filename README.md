@@ -24,6 +24,9 @@ Books are a wonderful start, many other things like tools or vihicles are also j
 This is a project that was collaboratly started at a hackathon in Copenhagen almost 2 years ago. It is now being brought forward and getting ready to run on a much more mature Holochain engine.
 
 ### Some of the app design:
+
+Reference: https://hackmd.io/201EhbqHQkaAR58Dxdc4qQ?both
+
 Basic functionality would include people entering the books that are in their bookshelf in order to make them visible to a community. 
 
 People can request to borrow books from each other or give them away if they are not worried about them making their way back to the bookshelf.
