@@ -1,23 +1,12 @@
 #![feature(proc_macro_hygiene)]
 
+use hdk::holochain_core_types::{dna::entry_types::Sharing, entry::Entry};
 use hdk::prelude::*;
-use hdk::{
-    entry_definition::ValidatingEntryType,
-    error::ZomeApiResult,
-};
-use hdk::holochain_core_types::{
-    entry::Entry,
-    dna::entry_types::Sharing,
-};
+use hdk::{entry_definition::ValidatingEntryType, error::ZomeApiResult};
 
-use hdk::holochain_json_api::{
-    json::JsonString,
-    error::JsonError
-};
+use hdk::holochain_json_api::{error::JsonError, json::JsonString};
 
-use hdk::holochain_persistence_api::{
-    cas::content::Address
-};
+use hdk::holochain_persistence_api::cas::content::Address;
 
 use hdk_proc_macros::zome;
 
@@ -36,7 +25,7 @@ struct LoanRequest {
 struct Loan {
     item_address: Address,
     borrower_address: Address,
-    return_by: i64
+    return_by: i64,
 }
 
 #[zome]
@@ -53,7 +42,7 @@ mod loans {
     }
 
     #[entry_def]
-     fn loan_request_def() -> ValidatingEntryType {
+    fn loan_request_def() -> ValidatingEntryType {
         entry!(
             name: "loan_request",
             description: "a request that a user has created when wanting to borrow someones item",
@@ -80,7 +69,7 @@ mod loans {
     }
 
     #[entry_def]
-     fn loan_def() -> ValidatingEntryType {
+    fn loan_def() -> ValidatingEntryType {
         entry!(
             name: "loan",
             description: "a loan entry created when a request to borrow is accepted by the owner",
@@ -106,7 +95,6 @@ mod loans {
         )
     }
 
-
     #[zome_fn("hc_public")]
     fn request_to_borrow(loan_request: LoanRequest) -> ZomeApiResult<Address> {
         //creating the request entry
@@ -125,28 +113,24 @@ mod loans {
         //hdk::get_entry(&address)
         Ok(vec![])
     }
-    
+
     #[zome_fn("hc_public")]
     fn create_loan(_loan_request_address: Address, _return_by: i64) -> ZomeApiResult<()> {
         //create a loan entry
-/*         let entry = Entry::App("loan".into(), entry.into());
-        let address = hdk::commit_entry(&entry)?;
- */        //create a link to the owner of the loan (and also one to the borrower?)
+        /*         let entry = Entry::App("loan".into(), entry.into());
+               let address = hdk::commit_entry(&entry)?;
+        */        //create a link to the owner of the loan (and also one to the borrower?)
 
         Ok(())
-
     }
     #[zome_fn("hc_public")]
     fn decline_loan(_loan_request_address: Address) -> ZomeApiResult<()> {
         //mark request as deleted?
         Ok(())
-
     }
     #[zome_fn("hc_public")]
     fn get_my_loans() -> ZomeApiResult<Vec<ZomeApiResult<GetEntryResult>>> {
         //get a vector of my loans based on my agent address and links
         Ok(vec![])
-
     }
-
 }

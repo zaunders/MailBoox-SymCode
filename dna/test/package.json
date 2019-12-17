@@ -1,7 +1,10 @@
 {
+  "scripts": {
+    "test": "node index.js"
+  },
   "devDependencies": {},
   "dependencies": {
-    "@holochain/try-o-rama": "^0.2.0-rc.2",
+    "@holochain/tryorama": "^0.3.0-rc.8",
     "faucet": "0.0.1",
     "json3": "*",
     "sleep": "^5.2.3",
