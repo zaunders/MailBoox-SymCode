@@ -5,7 +5,7 @@ process.on("unhandledRejection", error => {
   console.error("got unhandledRejection:", error);
 });
 
-const dna = Config.dna("../dist/dna.dna.json", "MailBoox");
+const dna = Config.dna("./dist/dna.dna.json", "MailBoox");
 const mainConfig = Config.gen({
   mail: dna // agent_id="blog", instance_id="blog", dna=dnaBlog
 });
@@ -18,7 +18,7 @@ orchestrator.registerScenario("creating a book, retrieve it", async (s, t) => {
 
   // Make a call to a Zome function
   // indicating the function, and passing it an input
-  const addr = await alice.call("book", "create_book", {
+  const addr = await alice.call("mail", "book", "create_book", {
     book: {
       name: "the Foundation",
       author: "Isaac Asimov",
@@ -26,18 +26,18 @@ orchestrator.registerScenario("creating a book, retrieve it", async (s, t) => {
       blurb:
         "An epic drama around the collapse and return of a galactic civilzation",
       isbn: "0553293354",
-      book_owner: useradress
+      book_owner: alice.instance("mail").agentAddress
     }
   });
   console.log(addr);
-  t.ok(addr);
+  t.ok(addr.Ok);
 
   //getting the book we just entered
-  const result = await alice.call("book", "get_book", { address: addr });
-  console.log(result);
+  const result = await alice.call("mail", "book", "get_book", { address: addr.Ok });
+  console.log(result.Ok.result.Single.entry.App[1]);
 
   // check for equality of the actual and expected results
-  const book = JSON.parse(result.Ok.App[1]);
+  const book = JSON.parse(result.Ok.result.Single.entry.App[1]);
   t.deepEqual(book, {
     name: "the Foundation",
     author: "Isaac Asimov",
@@ -45,7 +45,7 @@ orchestrator.registerScenario("creating a book, retrieve it", async (s, t) => {
     blurb:
       "An epic drama around the collapse and return of a galactic civilzation",
     isbn: "0553293354",
-    book_owner: useradress
+    book_owner: alice.instance("mail").agentAddress
   });
 });
 
@@ -57,7 +57,7 @@ orchestrator.registerScenario(
 
     // Make a call to a Zome function
     // indicating the function, and passing it an input
-    const book = await alice.call("book", "create_book", {
+    const book = await alice.call("mail", "book", "create_book", {
       book: {
         name: "the Foundation",
         author: "Isaac Asimov",
@@ -65,13 +65,13 @@ orchestrator.registerScenario(
         blurb:
           "An epic drama around the collapse and return of a galactic civilzation",
         isbn: "0553293354",
-        book_owner: useradress
+        book_owner: alice.instance("mail").agentAddress
       }
     });
     console.log(book);
     t.ok(book);
 
-    const book2 = await alice.call("book", "create_book", {
+    const book2 = await alice.call("mail", "book", "create_book", {
       book: {
         name: "Debt: the first 5000 years",
         author: "David Greaber",
@@ -79,18 +79,20 @@ orchestrator.registerScenario(
         blurb:
           "Here anthropologist David Graeber presents a stunning reversal of conventional wisdom: he shows that before there was money, there was debt. For more than 5,000 years, since the beginnings of the first agrarian empires, humans have used elaborate credit systems to buy and sell goods—that is, long before the invention of coins or cash. It is in this era, Graeber argues, that we also first encounter a society divided into debtors and creditors.",
         isbn: "9781612194196",
-        book_owner: useradress
+        book_owner: alice.instance("mail").agentAddress
       }
     });
     console.log(book2);
     t.ok(book2);
 
     //getting a vector with all my books
-    const result = await alice.call("book", "get_my_books", {});
+    const result = await alice.call("mail", "book", "get_my_books", {});
     console.log(result);
 
     // check for equality of the actual and expected results
-    t.deepEqual(result, { Ok: { App: [] } });
+    t.deepEqual(result, { Ok: [] });
+
+    //get owner of a book
   }
 );
 
