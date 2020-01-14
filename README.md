@@ -46,6 +46,9 @@ A possible mode of distribution could be that the owner can put the book in his/
 ![Possible future design considerations](https://i.imgur.com/DKam8eY.jpg)
 *Possible user interfaces: Library & Lending, Collection Pages and Book Circle Sessions*
 
+Old UI stuff that may be reused can be found here:
+https://github.com/zaunders/MailBoox/tree/master/ui-src/public
+
 **Liberary and Lending** would include inputing, listing books and collections *(arranged around locality, interest, project group, community, etc.)*, requesting to borrow and accepting borrow request. 
 
 A **Collections** page could showcase a book collection, have reviews of the books in there by others and contain a live conversation about the collection.
