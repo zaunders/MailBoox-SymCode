@@ -27,76 +27,7 @@ This is a project that was collaboratly started at a hackathon in Copenhagen alm
 
 Reference: https://hackmd.io/ye2aHWEqSdWMhIc_cTgNwg?both
 
-### Entity relationship design
 
-#### Books zome
-```mermaid
-graph TD
-  subgraph Books zome
-    subgraph anchors
-        all_groups
-        all_groups 
-        all_groups 
-        all_genres
-        all_genres 
-    end
-    subgraph Groups
-        all_groups --> Alice_appartment_building
-        all_groups --> Friends_of_Bob    
-    end
-    subgraph Genre
-      all_genres --> Sci-fi 
-      all_genres --> Sociology 
-    end
-    subgraph Books
-      Sci-fi --> Asimovs_foundation
-      Sociology --> Debt
-    end
-    subgraph Players
-      Alice -.book_owner.-> Asimovs_foundation
-      Asimovs_foundation --> Alice
-      Bob -.book_owner.-> Debt
-      Debt --> Bob
-      Alice -.part_of_group.-> Alice_appartment_building
-      Alice_appartment_building --> Alice
-      Bob -.part_of_group.-> Friends_of_Bob
-      Friends_of_Bob --> Bob
-      
-    end
-
-  end
-```
-
-#### Loans zome
-
-
-```mermaid
-graph TD
-  subgraph Loans zome
-     subgraph anchors
-      all_loans
-    end
-    subgraph Loan_requests
-      Loan_request1
-      Loan_request2
-    end
-    subgraph Loans
-      Loan_request1 -.informs.-> Loan1 
-      Loan_request2 -.informs.-> Loan2
-      all_loans --> Loan1
-      all_loans --> Loan2
-    end
-    subgraph agents
-        Loan1 -.lender.-> Alice
-        Loan1 -.borrower.-> Bob
-    end
-    subgraph books
-        Loan1 -.item_borrowed.- Book1
-        Loan2 -.item_borrowed.- Book2
-    end
-  end
-```
-## Basic functions
 Basic functionality would include people entering the books that are in their bookshelf in order to make them visible to a community. 
 
 People can request to borrow books from each other or give them away if they are not worried about them making their way back to the bookshelf.
