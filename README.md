@@ -34,7 +34,7 @@ People can request to borrow books from each other or give them away if they are
 A possible mode of distribution could be that the owner can put the book in his/her Mailbox in order to make it easily available for the borrower to pick-up.
 
 **Possible coming steps as of 23 October 2019**:
-1. Getting tests working in Try-o-Rama
+1. ~~ Getting tests working in Try-o-Rama ~~  - DONE
 2. Get the Books zome working
 3. Get the Borrowing zome working
 4. Connect the UI
