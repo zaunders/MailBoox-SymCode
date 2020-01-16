@@ -25,7 +25,7 @@ This is a project that was collaboratly started at a hackathon in Copenhagen alm
 
 ### Some of the app design:
 
-Reference: https://hackmd.io/201EhbqHQkaAR58Dxdc4qQ?both
+Reference: https://hackmd.io/ye2aHWEqSdWMhIc_cTgNwg?both
 
 Basic functionality would include people entering the books that are in their bookshelf in order to make them visible to a community. 
 
