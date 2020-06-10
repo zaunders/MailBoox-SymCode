@@ -58,10 +58,10 @@ A **Collections** page could showcase a book collection, have reviews of the boo
 
 ## Video design sessions
 Guillem and I have a conversation about how we might design the loans zome, and how that relates to the books zome. General design pattern conversation in there.
-<iframe width="560" height="315" src="https://www.youtube.com/embed/E-AKTys43Dw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+https://www.youtube.com/embed/E-AKTys43Dw
 
 First intro for our collaborative coding sessions:
-<iframe width="560" height="315" src="https://www.youtube.com/embed/hq6Br2iOyF0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+https://www.youtube.com/embed/hq6Br2iOyF0
 
 ## How?
 A collaborative process that attempts to **work-outloud**. Collaborative coding sessions may be streamed and recorded in order to allow others to follow the learning path to get to where the project is now and to learn for other projects.
